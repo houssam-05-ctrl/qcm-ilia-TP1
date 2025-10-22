@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz - Connaissances Générales</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>
+        <a href="https://ensaf.ac.ma" target="_blank" class="logo-link">
+            <img src="image.png" alt="ENSA Fès Logo">
+        </a>
+        Quiz : Développement Front-End
+    </h1>
+    
+    <form name="quizForm" id="quizForm">
+        
+        <div class="question-block">
+            <div class="question-text">1. Quel élément HTML est utilisé pour inclure du JavaScript dans une page ?</div>
+            <label class="option-label">
+                <input type="radio" name="q1" value="0"> &lt;js&gt;
+            </label>
+            <label class="option-label">
+                <input type="radio" name="q1" value="1"> &lt;script&gt;
+            </label>
+            <label class="option-label">
+                <input type="radio" name="q1" value="0"> &lt;javascript&gt;
+            </label>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">2. Quelle propriété CSS permet de changer la couleur du texte ?</div>
+            <label class="option-label">
+                <input type="radio" name="q2" value="0"> text-color
+            </label>
+            <label class="option-label">
+                <input type="radio" name="q2" value="1"> color
+            </label>
+            <label class="option-label">
+                <input type="radio" name="q2" value="0"> font-color
+            </label>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">3. Quels sont des frameworks JavaScript modernes ? (plusieurs réponses possibles)</div>
+            <label class="option-label">
+                <input type="checkbox" name="q3" value="1"> React
+            </label>
+            <label class="option-label">
+                <input type="checkbox" name="q3" value="1"> Vue.js
+            </label>
+            <label class="option-label">
+                <input type="checkbox" name="q3" value="0"> Django
+            </label>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">4. Quelles méthodes permettent de sélectionner des éléments DOM ? (plusieurs réponses possibles)</div>
+            <label class="option-label">
+                <input type="checkbox" name="q4" value="1"> querySelector
+            </label>
+            <label class="option-label">
+                <input type="checkbox" name="q4" value="1"> getElementById
+            </label>
+            <label class="option-label">
+                <input type="checkbox" name="q4" value="0"> selectElement
+            </label>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">5. Flexbox est une technique CSS pour :</div>
+            <label class="option-label">
+                <input type="radio" name="q5" value="1"> créer des mises en page flexibles
+            </label>
+            <label class="option-label">
+                <input type="radio" name="q5" value="0"> ajouter des animations
+            </label>
+            <label class="option-label">
+                <input type="radio" name="q5" value="0"> gérer les formulaires
+            </label>
+        </div>
+
+        <div class="button-container">
+            <button type="button" class="btn-reset" onclick="resetQuiz()">Réinitialiser</button>
+            <button type="button" class="btn-answers" onclick="showAnswers()">Voir les réponses</button>
+            <button type="button" class="btn-result" onclick="showResult()">Voir mon score</button>
+        </div>
+    </form>
+</div>
+
+<div id="answersModal" class="modal">
+    <div class="modal-content">
+        <h2 class="modal-header">Corrigé du Quiz</h2>
+        <div class="modal-body">
+            <ul>
+                <li><strong>Question 1 :</strong> &lt;script&gt;</li>
+                <li><strong>Question 2 :</strong> color</li>
+                <li><strong>Question 3 :</strong> React, Vue.js</li>
+                <li><strong>Question 4 :</strong> querySelector, getElementById</li>
+                <li><strong>Question 5 :</strong> créer des mises en page flexibles</li>
+            </ul>
+        </div>
+        <button class="close-btn" onclick="closeModal('answersModal')">Fermer</button>
+    </div>
+</div>
+
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+        <h2 class="modal-header">Votre Résultat</h2>
+        <div class="modal-body">
+            <div class="score-display" id="scoreDisplay">0/5</div>
+            <div class="score-message" id="scoreMessage"></div>
+        </div>
+        <button class="close-btn" onclick="closeModal('resultModal')">Fermer</button>
+    </div>
+</div>
+
+<script>
+function resetQuiz() {
+    document.getElementById('quizForm').reset();
+}
+
+function showAnswers() {
+    document.getElementById('answersModal').style.display = 'block';
+}
+
+function showResult() {
+    let score = 0;
+    
+    if (getSimpleAnswer("q1") == 1) score++;
+    if (getSimpleAnswer("q2") == 1) score++;
+    if (getMultipleAnswer("q3", [1, 1, 0])) score++;
+    if (getMultipleAnswer("q4", [1, 1, 0])) score++;
+    if (getSimpleAnswer("q5") == 1) score++;
+    
+    document.getElementById('scoreDisplay').textContent = score + '/5';
+    
+    let message = '';
+    if (score === 5) {
+        message = 'Parfait ! Vous maîtrisez le sujet !';
+    } else if (score >= 3) {
+        message = 'Bien joué ! Vous avez de bonnes connaissances.';
+    } else {
+        message = 'Continuez à apprendre, vous progresserez !';
+    }
+    
+    document.getElementById('scoreMessage').textContent = message;
+    document.getElementById('resultModal').style.display = 'block';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
+
+function getSimpleAnswer(name) {
+    let radios = document.quizForm[name];
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            return parseInt(radios[i].value);
+        }
+    }
+    return 0;
+}
+
+function getMultipleAnswer(name, correctAnswers) {
+    let checkboxes = document.quizForm[name];
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked !== (correctAnswers[i] === 1)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+}
+</script>
+
+</body>
+</html>
