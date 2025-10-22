@@ -7,3 +7,5 @@ un quiz interactif en **HTML/CSS** et **JS** (avec une petite aide de l ia pour 
 - **image.png** : logo ENSA Fès ( lien du site off lié a limage )   
 - **script.js** (si présent) : logique du quiz
 
+-> vous pouvez acceder a ma page du quiz en " **deployments** " 
+(this is a job and if you fear jobs dont do it lolz ) 
