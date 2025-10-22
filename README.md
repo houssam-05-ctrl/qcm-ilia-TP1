@@ -1,2 +1,9 @@
 # qcm-ilia-TP1
-tp exercice 1 sur un quiz en html css et js
+un quiz interactive en **HTML/CSS** et **JS** (avec une petite aide de l ia pour ne pas mentir, mais le plus important c'est de comprendre le deroulement de son "algorithme") 
+
+-> le fonctionnement de mon code :
+- **qcmJS.html** : structure HTML du quiz  
+- **style.css** : mise en forme de la page  
+- **image.png** : logo ENSA Fès ( lien du site off lié a limage )   
+- **script.js** (si présent) : logique du quiz
+
