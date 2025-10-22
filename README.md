@@ -1,5 +1,5 @@
 # qcm-ilia-TP1
-un quiz interactive en **HTML/CSS** et **JS** (avec une petite aide de l ia pour ne pas mentir, mais le plus important c'est de comprendre le deroulement de son "algorithme") 
+un quiz interactif en **HTML/CSS** et **JS** (avec une petite aide de l ia pour ne pas mentir, mais le plus important c'est de comprendre le deroulement de son "algorithme") 
 
 -> le fonctionnement de mon code :
 - **qcmJS.html** : structure HTML du quiz  
